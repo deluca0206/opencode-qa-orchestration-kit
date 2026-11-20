@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { expectedPermissions, frontmatter } from '../scripts/check.mjs';
 
-test('decisão humana habilita edit:* nos cinco QA sem liberar outras ferramentas', () => {
+test('human decision enables edit:* for all five QA agents without allowing other tools', () => {
   const config = JSON.parse(readFileSync('opencode.json', 'utf8'));
   for (const [id, permissions] of Object.entries(expectedPermissions)) {
     assert.deepEqual(permissions.filter(p => p.action === 'edit'), [{ action: 'edit', resource: '*', effect: 'allow' }]);
@@ -14,7 +14,7 @@ test('decisão humana habilita edit:* nos cinco QA sem liberar outras ferramenta
   }
 });
 
-test('comandos nativos seguem OAK com argumentos e sem shell inline', () => {
+test('native commands follow OAK with arguments and no inline shell', () => {
   for (const id of ['qa-investigate', 'qa-e2e', 'qa-audit']) {
     const text = readFileSync(`commands/${id}.md`, 'utf8');
     assert.ok(text.includes('$ARGUMENTS') && !text.includes('!`'), id);

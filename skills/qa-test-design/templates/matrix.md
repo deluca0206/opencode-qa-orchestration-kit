@@ -1,11 +1,11 @@
-# Matriz de risco e cobertura
-- Escopo, versão e requisito confirmado:
-- R-01: impacto / probabilidade / justificativa / confiança:
-- C-01: risco R-01 / técnica / pré-condição / dado sintético / passos / esperado:
-- Método: manual, exploração ou automação proposta:
-- Evidência EV e file:line (ou lacuna):
-- Cobertura desenhada / escrita / executada:
-- Regressão em fluxos compartilhados:
-- A11y automatizada parcial / teclado / assistiva manual pendente:
-- Bloqueios e risco residual:
-- Gate de release e decisão humana necessária:
+# Risk and coverage matrix
+- Scope, version and confirmed requirement:
+- R-01: impact / likelihood / justification / confidence:
+- C-01: risk R-01 / technique / precondition / synthetic data / steps / expected:
+- Method: manual, exploratory or proposed automation:
+- EV evidence and file:line (or gap):
+- Designed / written / executed coverage:
+- Shared-flow regression:
+- Partial automated a11y / keyboard / pending manual assistive checks:
+- Blockers and residual risk:
+- Release gate and required human decision:

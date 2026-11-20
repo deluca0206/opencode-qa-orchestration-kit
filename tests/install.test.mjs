@@ -14,10 +14,10 @@ function fixture(fn) {
 function run(target, args = [], env = {}) {
   return spawnSync(process.execPath, ['scripts/install.mjs', ...args, '--target', target], { encoding: 'utf8', env: { PATH: process.env.PATH, ...env } });
 }
-test('copy e link, espaços, config resolvida sem modificar fonte e reexecução falha', () => fixture(work => {
+test('copy and link handle spaces, resolve config without source changes and reject reruns', () => fixture(work => {
   const sourceConfig = readFileSync('opencode.json', 'utf8');
   for (const mode of ['--copy', '--symlink']) {
-    const target = resolve(work, mode + ' com espaços');
+    const target = resolve(work, mode + ' with spaces');
     mkdirSync(resolve(target, 'agents'), { recursive: true });
     writeFileSync(resolve(target, 'agents/third-party.md'), 'third party');
     const result = run(target, [mode]);
@@ -35,7 +35,7 @@ test('copy e link, espaços, config resolvida sem modificar fonte e reexecução
   }
   assert.equal(readFileSync('opencode.json', 'utf8'), sourceConfig);
 }));
-test('dry-run zero writes e conflitos preservam todos os preexistentes', () => fixture(work => {
+test('dry-run writes nothing and conflicts preserve all preexisting entries', () => fixture(work => {
   const absent = resolve(work, 'absent/deep');
   assert.equal(run(absent, ['--copy', '--dry-run']).status, 0);
   assert.deepEqual(readdirSync(work), []);
@@ -48,10 +48,10 @@ test('dry-run zero writes e conflitos preservam todos os preexistentes', () => f
     writeFileSync(resolve(target, conflict), 'sentinel');
     assert.notEqual(run(target, ['--copy']).status, 0, conflict);
     assert.equal(readFileSync(resolve(target, conflict), 'utf8'), 'sentinel');
-    if (!conflict.startsWith('commands/')) assert.equal(existsSync(resolve(target, 'commands')), false, 'preflight antes de qualquer escrita');
+    if (!conflict.startsWith('commands/')) assert.equal(existsSync(resolve(target, 'commands')), false, 'preflight before any writes');
   }
 }));
-test('nega links destino/ancestrais/quebrados e tipo conflitante sem seguir', () => fixture(work => {
+test('rejects target/ancestor/broken links and conflicting types without following them', () => fixture(work => {
   const real = resolve(work, 'real'); mkdirSync(real);
   const link = resolve(work, 'link'); symlinkSync(real, link);
   const broken = resolve(work, 'broken'); symlinkSync(resolve(work, 'missing'), broken);
@@ -61,7 +61,7 @@ test('nega links destino/ancestrais/quebrados e tipo conflitante sem seguir', ()
   assert.notEqual(run(target, ['--copy']).status, 0);
   assert.equal(readFileSync(resolve(target, 'agents'), 'utf8'), 'not directory');
 }));
-test('falha parcial reverte apenas entradas criadas, preserva terceiros e default HOME sintético', () => fixture(work => {
+test('partial failure rolls back only created entries, preserves third parties and uses synthetic default HOME', () => fixture(work => {
   const target = resolve(work, '.config/opencode');
   mkdirSync(resolve(target, 'agents'), { recursive: true });
   writeFileSync(resolve(target, 'agents/existing.md'), 'sentinel');

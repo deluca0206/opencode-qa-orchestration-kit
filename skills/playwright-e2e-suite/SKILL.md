@@ -1,30 +1,31 @@
 ---
 name: playwright-e2e-suite
-description: Autoria E2E com fixtures, locators observados, POM e isolamento sem mascarar falhas.
+description: E2E authoring with fixtures, observed locators, POM and isolation without masking failures.
 ---
-# Suíte Playwright sustentável
+# Maintainable Playwright suite
 
 ## MUST DO
-- Ler versão/convenções existentes; sem runner compatível, devolver plano.
-- edit:* está habilitado por HITL. Por regra comportamental, autoria só nas
-  três raízes de testes, nunca produção; também pode entregar código na resposta.
-  Não há confinamento técnico nem writer separado: proposta cancelada.
-- Mapear cada cenário à evidência e assertion observável.
-- Fixtures por teste/worker, dados únicos e cleanup dos próprios recursos.
-- Role/nome acessível ou testid estável observado; POM para comportamento
-  reutilizado, não para esconder assertions ou compartilhar estado mutável.
-- Usar dados externos e test.step com assertions web-first; sem XPath ou any.
-- Declarar autoria versus execução; runner é humano/controlado.
-- Após gerar, encaminhar execução/verificação no runner já existente. Sem
-  runner/autorização, status not_run e validação pendente, nunca “pass”.
+- Read existing versions/conventions; without a compatible runner, return a plan.
+- HITL enables edit:*. By behavioral rule, author only within the three test
+  roots tests/**, e2e/**, playwright/**, never production; code may also be
+  delivered in the response. There is no technical confinement or separate
+  writer: that proposal was cancelled.
+- Map each scenario to evidence and an observable assertion.
+- Use per-test/worker fixtures, unique data and cleanup of owned resources.
+- Use an accessible role/name or observed stable testid; POM is for reusable
+  behavior, not hiding assertions or sharing mutable state.
+- Use external data and test.step with web-first assertions; no XPath or any.
+- Distinguish authoring from execution; the runner is human/controlled.
+- After generation, request execution/verification on the existing runner.
+  Without a runner/authorization, report not_run and validation pending, never "pass".
 
 ## WON'T DO
-- Não instalar pacotes, executar specs/shell ou editar produção.
-- Não usar waitForTimeout/sleeps, retries para esconder falhas, catch silencioso,
-  seleção por índice sem contrato ou testes dependentes da ordem.
-- Não alegar que tests/** impede alias para produção.
+- Do not install packages, execute specs/shell or edit production.
+- Do not use waitForTimeout/sleeps, retries to hide failures, silent catches,
+  index selection without a contract or order-dependent tests.
+- Do not claim that tests/** prevents aliases to production.
 
-Use [padrões](references/guide.md) e
-[exemplo de autoria](templates/flow.spec.ts), com
-[fixtures](templates/fixtures.ts), [POM](templates/pages/search-page.ts) e
-[dados externos](templates/data/search.json).
+Use the [patterns](references/guide.md) and
+[authoring example](templates/flow.spec.ts), with
+[fixtures](templates/fixtures.ts), [POM](templates/pages/search-page.ts) and
+[external data](templates/data/search.json).

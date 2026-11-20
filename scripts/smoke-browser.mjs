@@ -1,4 +1,4 @@
-// Smoke de validação, NÃO backend/runner para agentes. Só CLI já instalada.
+// Validation smoke, NOT an agent backend/runner. Existing CLI only.
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { createServer } from 'node:http';
@@ -12,10 +12,10 @@ const exec = promisify(execFile);
 const cli = process.env.QA_SMOKE_CLI;
 const browserDir = process.env.QA_SMOKE_BROWSER_DIR;
 if (!cli || !browserDir) {
-  console.error('not_run: configure QA_SMOKE_CLI e QA_SMOKE_BROWSER_DIR para instalações existentes. Nenhum download.');
+  console.error('not_run: set QA_SMOKE_CLI and QA_SMOKE_BROWSER_DIR to existing installations. No downloads.');
   process.exitCode = 2;
 } else {
-  assert.ok(existsSync(cli) && existsSync(resolve(browserDir, 'chrome')), 'CLI/browser existentes obrigatórios');
+  assert.ok(existsSync(cli) && existsSync(resolve(browserDir, 'chrome')), 'Existing CLI/browser required');
   const temporaryRoot = resolve(tmpdir(), 'opencode');
   mkdirSync(temporaryRoot, { recursive: true });
   const work = mkdtempSync(resolve(temporaryRoot, 'qa-cli-smoke-'));
@@ -40,11 +40,11 @@ if (!cli || !browserDir) {
   const server = createServer((req, res) => {
     if (req.url === '/ping') { res.end('synthetic-ok'); return; }
     res.setHeader('content-type', 'text/html; charset=utf-8');
-    res.end(`<!doctype html><html lang="pt"><title>QA CLI fixture</title>
-      <label>Nome<input aria-label="Nome"></label><button id="go">Confirmar</button>
-      <output role="status">Pronto</output>
+    res.end(`<!doctype html><html lang="en"><title>QA CLI fixture</title>
+      <label>Name<input aria-label="Name"></label><button id="go">Confirm</button>
+      <output role="status">Ready</output>
       <script>console.log('synthetic console');fetch('/ping');
-      go.onclick=()=>document.querySelector('output').textContent='Confirmado: '+document.querySelector('input').value;</script></html>`);
+      go.onclick=()=>document.querySelector('output').textContent='Confirmed: '+document.querySelector('input').value;</script></html>`);
   });
   await new Promise(resolvePromise => server.listen(0, '127.0.0.1', resolvePromise));
   const origin = `http://127.0.0.1:${server.address().port}`;
@@ -56,7 +56,7 @@ if (!cli || !browserDir) {
     args.push('--', ...positional);
     const { stdout } = await exec(cli, args, { shell: false, cwd: work, env, timeout: 25000, maxBuffer: 2_000_000 });
     const result = JSON.parse(stdout);
-    assert.ok(!result.error && !result.isError, `CLI ${op} falhou`);
+    assert.ok(!result.error && !result.isError, `CLI ${op} failed`);
     operations.push(op);
     return result;
   };
@@ -75,38 +75,38 @@ if (!cli || !browserDir) {
     assert.equal(version, '0.1.22');
     const initial = await command('open', [origin]); opened = true;
     daemon = initial.pid;
-    assert.ok(Number.isInteger(daemon), 'CLI deve informar PID de sua sessão exclusiva');
+    assert.ok(Number.isInteger(daemon), 'CLI must report the PID of its exclusive session');
     owned = descendants(daemon);
     await command('goto', [`${origin}/next`]);
     const snapshot = await command('snapshot');
     const all = nodes(snapshot);
-    const ref = all.find(n => n.role === 'textbox' && n.name === 'Nome')?.ref;
-    const button = all.find(n => n.role === 'button' && n.name === 'Confirmar')?.ref;
-    assert.ok(ref && button, 'refs devem vir do snapshot real');
-    await command('fill', [ref, 'QA sintético']);
+    const ref = all.find(n => n.role === 'textbox' && n.name === 'Name')?.ref;
+    const button = all.find(n => n.role === 'button' && n.name === 'Confirm')?.ref;
+    assert.ok(ref && button, 'refs must come from the actual snapshot');
+    await command('fill', [ref, 'Synthetic QA']);
     await command('click', [button]);
-    assert.match(JSON.stringify(await command('snapshot')), /Confirmado: QA sintético/);
+    assert.match(JSON.stringify(await command('snapshot')), /Confirmed: Synthetic QA/);
     assert.match(JSON.stringify(await command('console')), /synthetic console/);
     assert.match(JSON.stringify(await command('requests')), /ping/);
     await command('screenshot');
     const pngs = readdirSync(artifacts).filter(n => n.endsWith('.png'));
-    assert.ok(pngs.length > 0, 'screenshot deve criar PNG no workspace de teste');
+    assert.ok(pngs.length > 0, 'screenshot must create a PNG in the test workspace');
     assert.equal(readFileSync(resolve(artifacts, pngs[0])).subarray(1, 4).toString(), 'PNG');
     owned = descendants(daemon);
     await command('close'); opened = false;
     const deadline = Date.now() + 5000;
     while (owned.some(pid => existsSync(`/proc/${pid}`)) && Date.now() < deadline) await new Promise(resolvePromise => setTimeout(resolvePromise, 20));
-    assert.ok(owned.every(pid => !existsSync(`/proc/${pid}`)), 'CLI/Chromium próprios devem encerrar');
+    assert.ok(owned.every(pid => !existsSync(`/proc/${pid}`)), 'Owned CLI/Chromium processes must exit');
     assert.equal(hash(), before);
     console.log(JSON.stringify({
       classification: 'live_smoke', verdict: 'works_as_specified', cliVersion: version,
-      session: '<exclusive-qa-kit-8hex>', operations, screenshot: 'PNG real verificado',
-      syntheticSentinelUnchanged: true, cleanup: 'sessão própria fechada; fixture/workspace removidos',
-      limits: 'CLI direto sem isolamento OS; não prova confinamento, segurança de rede ou execução de specs.',
+      session: '<exclusive-qa-kit-8hex>', operations, screenshot: 'Actual PNG verified',
+      syntheticSentinelUnchanged: true, cleanup: 'Owned session closed; fixture/workspace removed',
+      limits: 'Direct CLI without OS isolation; does not prove confinement, network security or spec execution.',
     }, null, 2));
   } finally {
     if (opened || daemon && existsSync(`/proc/${daemon}`)) {
-      try { await command('close'); } catch { /* Somente a sessão exclusiva deste smoke. */ }
+      try { await command('close'); } catch { /* Only this smoke's exclusive session. */ }
     }
     server.closeAllConnections();
     await new Promise(resolvePromise => server.close(resolvePromise));

@@ -3,16 +3,27 @@ import assert from 'node:assert/strict';
 import { check, frontmatter, expectedPermissions } from '../scripts/check.mjs';
 import { readFileSync } from 'node:fs';
 
-test('árvore aprovada satisfaz contratos estáticos', () => {
+test('approved tree satisfies static contracts', () => {
   assert.deepEqual(check(), []);
 });
 
-test('frontmatter restrito rejeita entradas inválidas', () => {
-  assert.throws(() => frontmatter('sem frontmatter'));
+test('active contracts do not depend on retired local archives', () => {
+  const reads = [];
+  const errors = check({ read: path => {
+    reads.push(path);
+    if (path === 'docs/ai/baseline-drafts.json') throw new Error('retired archive unavailable');
+    return readFileSync(path, 'utf8');
+  } });
+  assert.deepEqual(errors, []);
+  assert.ok(!reads.includes('docs/ai/baseline-drafts.json'));
+});
+
+test('restricted frontmatter rejects invalid input', () => {
+  assert.throws(() => frontmatter('no frontmatter'));
   assert.throws(() => frontmatter('---\npermissions: [broken\n---\n'));
 });
 
-test('checker detecta expansão de privilégio, drift e comandos executáveis', () => {
+test('checker detects privilege expansion, drift and executable commands', () => {
   const original = path => readFileSync(path, 'utf8');
   const mutations = [
     ['agents/qa-lead.md', s => s.replace('"effect":"deny"', '"effect":"allow"')],
@@ -30,11 +41,11 @@ test('checker detecta expansão de privilégio, drift e comandos executáveis', 
   ];
   for (const [path, mutate] of mutations) {
     const errors = check({ read: p => p === path ? mutate(original(p)) : original(p) });
-    assert.ok(errors.length > 0, `mutação não detectada: ${path}`);
+    assert.ok(errors.length > 0, `undetected mutation: ${path}`);
   }
 });
 
-test('allowlists preservam edit amplo e restringem execução/delegação', () => {
+test('allowlists preserve broad edit and restrict execution/delegation', () => {
   for (const [id, permissions] of Object.entries(expectedPermissions)) {
     assert.deepEqual(permissions[0], { action: '*', resource: '*', effect: 'deny' });
     assert.ok(!permissions.some(r => r.effect === 'allow' && ['execute', 'external_directory'].includes(r.action)));

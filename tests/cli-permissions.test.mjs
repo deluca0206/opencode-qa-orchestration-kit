@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { expectedPermissions, cliShellRules } from '../scripts/check.mjs';
 
-test('somente explorer possui allows shell CLI específicos; config não registra MCP', () => {
+test('only explorer has specific CLI shell allows; config registers no MCP', () => {
   assert.ok(cliShellRules.length > 0);
   for (const [id, rules] of Object.entries(expectedPermissions)) {
     const allowed = rules.filter(r => r.action === 'shell' && r.effect === 'allow');

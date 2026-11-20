@@ -1,12 +1,12 @@
-// Exemplo: só adaptar ao runner/DOM reais já existentes; não instala dependência.
+// Example: adapt only to the existing runner/observed DOM; installs no dependency.
 import { test, expect } from './fixtures';
 import searchData from './data/search.json';
 
-test('busca sem correspondência informa resultado vazio', async ({ searchPage, page }) => {
-  await test.step('buscar termo sintético sem correspondência', async () => {
+test('unmatched search reports an empty result', async ({ searchPage, page }) => {
+  await test.step('search for an unmatched synthetic term', async () => {
     await searchPage.search(searchData.term);
   });
-  await test.step('verificar estado observável, não somente o clique', async () => {
+  await test.step('verify observable state, not merely the click', async () => {
     await expect(page.getByRole('status')).toHaveText(searchData.expected);
   });
 });
