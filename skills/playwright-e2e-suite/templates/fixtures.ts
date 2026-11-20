@@ -3,10 +3,10 @@ import { SearchPage } from './pages/search-page';
 
 export const test = base.extend<{ searchPage: SearchPage }>({
   searchPage: async ({ page }, use) => {
-    await page.goto('/catalogo'); // baseURL e DOM devem vir do projeto/observação.
+    await page.goto('/catalog'); // baseURL and DOM must come from the project/observation.
     await use(new SearchPage(page));
-    // Fixture page/context encerra por teste; este exemplo não persiste dados.
-    // Se criar recursos, guardar IDs próprios e implementar teardown autorizado.
+    // The page/context fixture closes per test; this example persists no data.
+    // If creating resources, retain owned IDs and implement authorized teardown.
   },
 });
 export { expect };

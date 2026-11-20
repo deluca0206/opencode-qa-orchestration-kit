@@ -1,19 +1,20 @@
 ---
-description: Desenha cobertura, valida seletores, produz testes e revisa sem executar specs.
+description: Designs coverage, validates selectors, authors tests and reviews without executing specs.
 agent: qa-lead
 ---
-Objetivo da cobertura (argumentos humanos confiáveis):
+Coverage objective (trusted human arguments):
 
 $ARGUMENTS
 
-Sequência obrigatória: qa-quality-auditor desenha cenários por risco →
-qa-browser-explorer observa seletores reais → qa-e2e-engineer produz autoria →
-qa-quality-auditor revisa matriz e lacunas. Passe evidências entre etapas.
-Todos os cinco QA têm edit:* por HITL; diagnóstico/lead não devem escrever.
-Engineer deve escrever só em tests/**, e2e/**, playwright/**, nunca produção,
-por regra comportamental, sem confinamento técnico; também pode entregar testes
-na conversa. Writer separado foi cancelado. Shell CLI só no explorer; lead e
-engineer não executam shell/specs nem instalações. Encaminhar validação humana/controlada após
-gerar, com comando do runner existente, esperado e evidência de retorno.
-Sem runner/autorização, marcar execução not_run. Separar cobertura proposta,
-escrita e executada. Reportar EV, file:line, status e pendências.
+Required sequence: qa-quality-auditor designs risk-based scenarios →
+qa-browser-explorer observes actual selectors → qa-e2e-engineer authors tests →
+qa-quality-auditor reviews the matrix and gaps. Pass evidence between steps.
+All five QA agents have edit:* by HITL; diagnostic roles/lead must not write.
+The engineer must write only in tests/**, e2e/**, playwright/**, never production,
+by behavioral rule without technical confinement; tests may also be delivered
+in the conversation. A separate writer was cancelled. CLI shell belongs only to
+the explorer; lead and engineer do not run shell/specs or installations. Request
+human/controlled validation after generation, with the existing runner's command,
+expected result and returned evidence. Without a runner/authorization, mark
+execution not_run. Separate proposed, written and executed coverage. Report EVs,
+file:line, status and pending work. Respond in the user's language.

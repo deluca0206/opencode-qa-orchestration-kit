@@ -1,4 +1,4 @@
-// Geração determinística do artefato distribuído; não lê config do usuário.
+// Deterministic generation of the distributed artifact; never reads user config.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';

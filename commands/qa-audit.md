@@ -1,14 +1,15 @@
 ---
-description: Audita riscos, regressão, desenho de testes e acessibilidade sem alterar arquivos.
+description: Audits risks, regression, test design and accessibility without changing files.
 agent: qa-lead
 ---
-Escopo da auditoria (argumentos humanos confiáveis):
+Audit scope (trusted human arguments):
 
 $ARGUMENTS
 
-Confirme release, ambiente, requisitos e limites. Delegue ao qa-quality-auditor
-matriz de risco com técnicas ISTQB, positivos/negativos/limites, autorização,
-regressão e a11y. Use explorer/tracer via lead somente para evidências necessárias
-e autorizadas. Não alterar arquivos nem executar ferramentas fora da allowlist.
-Automação não prova conformidade WCAG completa. Reportar esperado/observado,
-passos, EV, file:line quando disponível, severidade/confiança e gates pendentes.
+Confirm the release, environment, requirements and limits. Delegate a risk matrix
+to qa-quality-auditor using ISTQB techniques, positive/negative/boundary cases,
+authorization, regression and a11y. Use explorer/tracer through the lead only for
+necessary, authorized evidence. Do not change files or run tools outside the
+allowlist. Automation does not prove full WCAG conformance. Report expected/
+observed behavior, steps, EVs, available file:line, severity/confidence and pending
+gates. Respond in the user's language.

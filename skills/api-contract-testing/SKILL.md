@@ -1,23 +1,23 @@
 ---
 name: api-contract-testing
-description: Desenha testes de contrato API positivos, negativos, auth, erros e cleanup seguro.
+description: Designs positive, negative, auth, error and safe-cleanup API contract tests.
 ---
-# Contratos API em ambiente de teste
+# API contracts in a test environment
 
 ## MUST DO
-- Ler contrato/versionamento; confirmar host de teste e efeitos permitidos.
-- Verificar status, schema/tipos, campos obrigatórios, semântica e erros.
-- Cobrir positivo, inválido, limite, sem autenticação e papel sem autorização.
-- Isolar recursos criados por teste e limpar somente seus IDs em teardown.
-- Usar identidades sintéticas providas pelo executor; nunca embutir credenciais.
-- Separar proposta, autoria e execução humana/controlada.
+- Read the contract/versioning; confirm the test host and permitted effects.
+- Verify status, schema/types, required fields, semantics and errors.
+- Cover valid, invalid, boundary, unauthenticated and unauthorized-role cases.
+- Isolate resources per test and clean up only their own IDs in teardown.
+- Use synthetic identities provided by the executor; never embed credentials.
+- Separate proposals, authoring and human/controlled execution.
 
 ## WON'T DO
-- Não testar produção destrutivamente, ler segredo ou executar requests/shell
-  por esta skill. O engineer só produz testes, não roda suíte.
-- Não aceitar qualquer 2xx/4xx nem copiar payloads sensíveis para evidência.
-- Não instalar biblioteca de schema se não houver dependência já aprovada.
+- Do not destructively test production, read secrets or run requests/shell through
+  this skill. The engineer only authors tests; it does not run the suite.
+- Do not accept arbitrary 2xx/4xx responses or copy sensitive payloads into evidence.
+- Do not install a schema library without an already approved dependency.
 
-Use [matriz de contrato](references/guide.md) e
-[modelo de cenários](templates/contract.md), com
-[exemplo usando request fixture](templates/contract.spec.ts).
+Use the [contract matrix](references/guide.md) and
+[scenario template](templates/contract.md), with the
+[request fixture example](templates/contract.spec.ts).

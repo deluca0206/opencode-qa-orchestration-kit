@@ -1,15 +1,16 @@
 ---
-description: Reproduz um sintoma e correlaciona evidências com leitura obrigatória de código.
+description: Reproduces a symptom and correlates evidence through mandatory code reading.
 agent: qa-lead
 ---
-Objetivo da investigação (argumentos humanos confiáveis):
+Investigation objective (trusted human arguments):
 
 $ARGUMENTS
 
-Confirme ambiente, URL, escopo e esperado antes de ações que mutem dados.
-Delegue ao qa-browser-explorer para reproduzir e coletar evidências sanitizadas;
-aguarde e encaminhe ao qa-bug-tracer para leitura obrigatória de código e
-correlação rota/componente/handler/condição com file:line.
-Consolide status, esperado/observado, passos, EV, severidade/confiança e
-pendências. Sem acesso runtime ou código, explicite bloqueio; hipótese não
-vira causa confirmada. Não editar produção, relatórios ou executar comandos.
+Confirm the environment, URL, scope and expected result before data mutations.
+Delegate reproduction and sanitized evidence collection to qa-browser-explorer;
+await its response and pass it to qa-bug-tracer for mandatory code reading and
+route/component/handler/condition correlation with file:line.
+Consolidate status, expected/observed behavior, steps, EVs, severity/confidence and
+pending work. Without runtime or code access, state the blocker; a hypothesis
+does not become a confirmed cause. Do not edit production or reports, or run
+commands. Respond in the user's language.

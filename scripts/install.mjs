@@ -16,12 +16,12 @@ function safeAncestors(path, include = true) {
   }
   for (const p of chain.reverse()) {
     const s = stat(p);
-    if (s && (s.isSymbolicLink() || !s.isDirectory())) throw new Error(`Destino/ancestral não é diretório real: ${p}`);
+    if (s && (s.isSymbolicLink() || !s.isDirectory())) throw new Error(`Target/ancestor is not a real directory: ${p}`);
   }
 }
 function validateSource(path) {
   const s = lstatSync(path);
-  if (s.isSymbolicLink() || (!s.isDirectory() && !s.isFile())) throw new Error(`Fonte não regular: ${path}`);
+  if (s.isSymbolicLink() || (!s.isDirectory() && !s.isFile())) throw new Error(`Non-regular source: ${path}`);
   if (s.isDirectory()) for (const name of readdirSync(path)) validateSource(join(path, name));
 }
 function main() {
@@ -32,25 +32,25 @@ function main() {
     if (['--copy', '--symlink'].includes(arg) && !mode) mode = arg;
     else if (arg === '--dry-run' && !dry) dry = true;
     else if (arg === '--target' && !targetSeen && args[i + 1] && !args[i + 1].startsWith('--')) { target = resolve(args[++i]); targetSeen = true; }
-    else throw new Error('Uso: install.sh --copy|--symlink [--target PATH] [--dry-run]');
+    else throw new Error('Usage: install.sh --copy|--symlink [--target PATH] [--dry-run]');
   }
-  if (!mode) throw new Error('Escolha exatamente --copy ou --symlink');
+  if (!mode) throw new Error('Choose exactly --copy or --symlink');
   safeAncestors(target);
-  if (target === source || target.startsWith(source + '/')) throw new Error('Destino não pode estar dentro da fonte');
-  if (stat(resolve(target, 'opencode.jsonc'))) throw new Error('Conflito: opencode.jsonc');
-  // Preflight completo: nenhuma criação ocorre até validar todas entradas.
+  if (target === source || target.startsWith(source + '/')) throw new Error('Target must not be inside the source');
+  if (stat(resolve(target, 'opencode.jsonc'))) throw new Error('Conflict: opencode.jsonc');
+  // Complete preflight: create nothing until every entry is validated.
   for (const entry of inventory) {
     validateSource(resolve(source, entry));
     const dest = resolve(target, entry);
     safeAncestors(dest, false);
-    if (stat(dest)) throw new Error(`Conflito: ${dest}; nada será sobrescrito/mesclado`);
+    if (stat(dest)) throw new Error(`Conflict: ${dest}; nothing will be overwritten/merged`);
   }
   const config = JSON.parse(readFileSync(resolve(source, 'opencode.json'), 'utf8'));
-  // Config materializada nos dois modos; referências relativas aos assets
-  // funcionam em copy e symlink, sem tocar configuração da fonte.
+  // Config is materialized in both modes; relative asset references work
+  // with copy and symlink without touching the source configuration.
   const generated = JSON.stringify(config, null, 2) + '\n';
   if (dry) {
-    console.log(`dry-run: ${mode}, ${target}; ${inventory.length} entradas, zero escritas.`);
+    console.log(`dry-run: ${mode}, ${target}; ${inventory.length} entries, zero writes.`);
     return;
   }
   const created = [];
@@ -84,28 +84,28 @@ function main() {
       const dest = resolve(target, entry);
       directory(dirname(dest));
       safeAncestors(dest, false);
-      if (stat(dest)) throw new Error(`Conflito durante instalação: ${dest}`);
+      if (stat(dest)) throw new Error(`Conflict during installation: ${dest}`);
       if (entry === 'opencode.json') {
         createFile(dest, generated, 0o600);
       } else if (mode === '--symlink') {
         symlinkSync(resolve(source, entry), dest); record(dest, false);
       } else copy(resolve(source, entry), dest);
-      // Failpoint apenas para testes locais: causa falha, nunca executa hooks.
-      if (process.env.QA_INSTALL_TEST_FAIL_AFTER === String(++count)) throw new Error('Falha induzida de teste');
+      // Local-test failpoint only: causes failure, never executes hooks.
+      if (process.env.QA_INSTALL_TEST_FAIL_AFTER === String(++count)) throw new Error('Induced test failure');
     }
-    console.log(`Instalado ${mode} em ${target}. Config materializada; reexecução com colisão falha.`);
+    console.log(`Installed ${mode} at ${target}. Config materialized; reruns with collisions fail.`);
   } catch (error) {
     const residual = [];
     for (const entry of created.reverse()) {
       try {
         safeAncestors(entry.path, false);
         const current = lstatSync(entry.path);
-        if (current.dev !== entry.dev || current.ino !== entry.ino) throw new Error('Entrada substituída por terceiro');
+        if (current.dev !== entry.dev || current.ino !== entry.ino) throw new Error('Entry replaced by a third party');
         entry.dir ? rmdirSync(entry.path) : unlinkSync(entry.path);
       }
       catch { residual.push(entry.path); }
     }
-    throw new Error(`${error.message}; rollback apenas das entradas próprias${residual.length ? `; resíduos preservados: ${residual.join(', ')}` : '; concluído'}`);
+    throw new Error(`${error.message}; rollback of owned entries only${residual.length ? `; residual entries preserved: ${residual.join(', ')}` : '; complete'}`);
   }
 }
 try { main(); } catch (error) { console.error(error.message); process.exitCode = 1; }

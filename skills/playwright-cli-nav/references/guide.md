@@ -1,17 +1,17 @@
-# Coleta mínima
-1. Registrar versão do alvo, viewport, fixture e estado inicial.
-2. Abrir URL explicitamente autorizada pela CLI existente. Não há gate de rede,
-   proxy, MCP ou sandbox do kit. Não navegar fora do escopo humano.
-3. Snapshot produz referências efêmeras: não reutilizar após mudança de DOM.
-4. Click/fill só com ref observado; não inventar JS para contornar estado.
-5. Console: reportar nível e mensagem sanitizada; network: método/status e
-   caminho sem query sensível. Nunca retornar headers/cookies/payloads.
-6. Screenshot somente de alvo sintético aprovado, com referência EV.
-7. Fechar apenas a sessão exclusiva e verificar cleanup. Ferramenta indisponível
-   implica bloqueio, não npm/npx ou instalação automática.
+# Minimal collection
+1. Record the target version, viewport, fixture and initial state.
+2. Open the explicitly authorized URL using the existing CLI. The kit provides
+   no network gate, proxy, MCP or sandbox. Stay within human-approved scope.
+3. Snapshots produce ephemeral refs: do not reuse them after DOM changes.
+4. Click/fill only with observed refs; do not invent JS to bypass state.
+5. Console: report level and sanitized message; network: method/status and path
+   without sensitive queries. Never return headers/cookies/payloads.
+6. Screenshot only an approved synthetic target, with an EV reference.
+7. Close only the exclusive session and verify cleanup. An unavailable tool is
+   a blocker, not authorization for npm/npx or automatic installation.
 
-CLI explora um browser vivo; Playwright Test executa specs versionadas. Ações
-exploratórias ou TypeScript obtido delas não constituem suíte aprovada: faltam
-assertions, fixtures/POM, dados e execução/verificação no runner existente.
-Encaminhar ao engineer/auditor, sem inventar locators ou alegar execução.
-Não tornar debug/attach obrigatório: não faz parte das formas aprovadas aqui.
+CLI explores a live browser; Playwright Test runs versioned specs. Exploratory
+actions or derived TypeScript are not an approved suite: assertions, fixtures/POM,
+data and execution/verification on the existing runner are still required.
+Hand off to engineer/auditor without inventing locators or claiming execution.
+Do not require debug/attach: it is not part of the forms approved here.

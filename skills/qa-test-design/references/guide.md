@@ -1,16 +1,15 @@
-# Seleção por risco
-Impacto descreve dano; probabilidade descreve exposição; confiança descreve
-qualidade de evidência. Um defeito crítico pode ter confiança baixa e requerer
-coleta, não ser descartado. Explique escalas adotadas.
+# Risk-based selection
+Impact describes harm; likelihood describes exposure; confidence describes
+evidence quality. A critical defect with low confidence needs collection, not
+dismissal. Explain the chosen scales.
 
-Partição de equivalência (EP) agrupa entradas com mesmo comportamento.
-Valores limite (BVA) exercitam cada
-lado de uma fronteira. Tabela de decisão cobre combinações independentes de
-regras. Transição cobre estado válido, inválido e recuperação.
-Exemplo: desconto só para cliente ativo com cupom válido pede quatro combinações;
-um limite monetário pede valores vizinhos, não uma lista aleatória de preços.
+Equivalence partitioning (EP) groups inputs with the same behavior. Boundary
+value analysis (BVA) exercises both sides of a boundary. Decision tables cover
+independent rule combinations. Transitions cover valid/invalid states and recovery.
+Example: a discount only for active customers with a valid coupon requires four
+combinations; a monetary limit needs neighboring values, not random prices.
 
-A11y: navegação por teclado, ordem e visibilidade de foco, nome/role/estado,
-erros associados ao campo, contraste e teste assistivo manual. Scanner
-automatizado cobre apenas parte; não traduzir zero achados em conformidade.
-O gate de release inclui riscos residuais aceitos explicitamente por humano.
+A11y: keyboard navigation, focus order/visibility, name/role/state, field-linked
+errors, contrast and manual assistive testing. Automated scanners cover only
+part of this; zero findings do not mean conformance.
+The release gate includes residual risks explicitly accepted by a human.

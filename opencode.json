@@ -3,7 +3,7 @@
   "default_agent": "qa-lead",
   "agents": {
     "qa-lead": {
-      "description": "Orquestra investigação e cobertura QA; consolida evidências sem editar ou executar.",
+      "description": "Orchestrates QA investigation and coverage; consolidates evidence without editing or executing.",
       "mode": "primary",
       "system": "{file:./agents/qa-lead.md}",
       "permissions": [
@@ -145,7 +145,7 @@
       ]
     },
     "qa-browser-explorer": {
-      "description": "Reproduz fluxos autorizados por playwright-cli existente, snapshots e refs, sem MCP ou runner próprio.",
+      "description": "Reproduces authorized flows using the existing playwright-cli, snapshots and refs, without a custom MCP or runner.",
       "mode": "subagent",
       "system": "{file:./agents/qa-browser-explorer.md}",
       "permissions": [
@@ -352,7 +352,7 @@
       ]
     },
     "qa-bug-tracer": {
-      "description": "Lê código e correlaciona evidências runtime à condição causal com file:line, sem mutações.",
+      "description": "Reads code and correlates runtime evidence with the causal condition using file:line, without mutations.",
       "mode": "subagent",
       "system": "{file:./agents/qa-bug-tracer.md}",
       "permissions": [
@@ -454,7 +454,7 @@
       ]
     },
     "qa-e2e-engineer": {
-      "description": "Produz testes E2E/API nas três raízes por regra comportamental; edit nativo amplo aprovado pelo humano.",
+      "description": "Authors E2E/API tests within three roots by behavioral rule; broad native edit is human-approved.",
       "mode": "subagent",
       "system": "{file:./agents/qa-e2e-engineer.md}",
       "permissions": [
@@ -561,7 +561,7 @@
       ]
     },
     "qa-quality-auditor": {
-      "description": "Desenha e revisa cobertura por risco, técnicas ISTQB, regressão e acessibilidade sem escrita.",
+      "description": "Designs and reviews risk-based coverage, ISTQB techniques, regression and accessibility without writing files.",
       "mode": "subagent",
       "system": "{file:./agents/qa-quality-auditor.md}",
       "permissions": [
@@ -668,17 +668,17 @@
   ],
   "commands": {
     "qa-investigate": {
-      "description": "Reproduz um sintoma e correlaciona evidências com leitura obrigatória de código.",
+      "description": "Reproduces a symptom and correlates evidence through mandatory code reading.",
       "agent": "qa-lead",
       "template": "{file:./commands/qa-investigate.md}"
     },
     "qa-e2e": {
-      "description": "Desenha cobertura, valida seletores, produz testes e revisa sem executar specs.",
+      "description": "Designs coverage, validates selectors, authors tests and reviews without executing specs.",
       "agent": "qa-lead",
       "template": "{file:./commands/qa-e2e.md}"
     },
     "qa-audit": {
-      "description": "Audita riscos, regressão, desenho de testes e acessibilidade sem alterar arquivos.",
+      "description": "Audits risks, regression, test design and accessibility without changing files.",
       "agent": "qa-lead",
       "template": "{file:./commands/qa-audit.md}"
     }

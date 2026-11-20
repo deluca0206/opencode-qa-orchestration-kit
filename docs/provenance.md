@@ -1,6 +1,6 @@
-# Proveniência e auditoria de aderência
+# Provenance and alignment audit
 
-## Bases fixadas, sem nova pesquisa ampla
+## Pinned bases
 - **F**: Fugazi, MIT, commit
   `ccae7871afd60e977eaccebce65d3bf4c633fabf`:
   https://github.com/fugazi/test-automation-skills-agents/tree/ccae7871afd60e977eaccebce65d3bf4c633fabf
@@ -8,55 +8,54 @@
   `ac4bc52d03a1eef1724b63ca2f97125c2f622e01`:
   https://github.com/jcarlosrodicio/opencode-agent-orchestration-kit/tree/ac4bc52d03a1eef1724b63ca2f97125c2f622e01
 
-Árvores/arquivos foram verificados no handoff do researcher; nesta simplificação
-houve leitura pontual adicional de F/skills/playwright-cli/SKILL.md,
-F/skills/playwright-e2e-testing/SKILL.md e O/opencode/commands/test.md para
-confirmar os anchors concretos. Não se copiou código/texto Apache extenso. Prompts
-pt-BR são originais e referências servem como padrões, não autorização.
+The upstream trees/files were inspected during initial research, with additional
+targeted reading of F/skills/playwright-cli/SKILL.md,
+F/skills/playwright-e2e-testing/SKILL.md and O/opencode/commands/test.md to confirm
+concrete anchors. No substantial Apache code/text was copied. The prompts are
+original adaptations, now in English; references provide patterns, not authority.
 
-## Mapa de toda a estrutura ativa
+## Complete active-structure map
 
-| Componente local | Arquivo concreto na base fixada | Adaptação / origem da diferença |
+| Local component | Concrete file at the pinned base | Adaptation / source of difference |
 | --- | --- | --- |
-| agents/qa-lead.md | F/agents/qa-orchestrator.agent.md | Delegação/contexto; cinco papéis locais, sem importar sete papéis upstream |
-| agents/qa-browser-explorer.md; skills/playwright-cli-nav/** | F/skills/playwright-cli/SKILL.md; references/playwright-tests.md; references/test-generation.md | CLI existente 0.1.22, snapshot/ref e lifecycle; subconjunto de operações autorizado, sem MCP/debug/attach obrigatório |
-| agents/qa-bug-tracer.md; skills/bug-code-correlation/** | F/skills/qa-investigation/SKILL.md; references/flow.md; references/templates.md | Reprodução/evidência/hipótese/causa/prevenção. Sem diários/correção em aplicação; file:line é requisito local, não alegação literal upstream |
-| agents/qa-e2e-engineer.md; skills/playwright-e2e-suite/** | F/skills/playwright-e2e-testing/SKILL.md; F/instructions/playwright-typescript.instructions.md | POM/fixtures/dados externos/test.step/locators observados/assertions; três raízes são regra local de prompt, edit:* amplo por HITL |
-| Orientação API; skills/api-contract-testing/** | F/skills/api-testing/SKILL.md; templates/playwright-api-spec.ts | request fixture sem browser, contratos/erros/auth/isolamento; não instalar Zod/Supertest/Java ou runner novo |
-| agents/qa-quality-auditor.md; skills/qa-test-design/** | F/skills/qa-manual-istqb/SKILL.md | EP/BVA, decisões/estados/risco/rastreabilidade; a11y parcial, sem conformidade completa presumida |
-| commands/qa-investigate.md, qa-audit.md, qa-e2e.md | O/opencode/commands/research.md, feature.md, test.md | Padrão frontmatter/encaminhamento/$ARGUMENTS/passos curtos; nomes e roteamento qa-lead são requisitos locais |
-| opencode.json; frontmatters | O/docs/opencode-v2.md + documentação oficial OpenCode | Native V2 agents/permissions/shell/subagent. Sem ferramentas MCP inexistentes; não portar plugins OAK |
-| AGENTS.md | F/instructions/playwright-typescript.instructions.md; F/agents/qa-orchestrator.agent.md; requisitos locais | Constituição QA própria, confiança dos dados e manutenção. Edit:* nos cinco e proibição de produção só por prompts são decisão humana explícita |
-| install.sh; scripts/install.mjs | O/install.sh; O/scripts/manage-installation.mjs como padrão wrapper/JS | **Copy/symlink é pedido local**, não comportamento atribuído ao OAK. Preflight e rollback próprios mínimos; não portar manifesto/lifecycle completo upstream |
-| scripts/check.mjs; build-config.mjs; tests/*.test.mjs | Requisito local explícito de checker dependency-free, contratos e preflight | Helpers mínimos Node builtin, não estrutura executável atribuída ao catálogo Fugazi ou framework adicional |
-| scripts/smoke-browser.mjs | F/skills/playwright-cli/SKILL.md | Validação local por CLI já instalada e fixture própria. Não é backend/runner de agentes nem sandbox |
-| scripts/smoke-opencode.mjs | O/docs/opencode-v2.md + API local OpenCode 2.3.2 | Verificação local requerida: HOME/config temporários, copy/link, descoberta/motor. Não invoca ferramentas arbitrárias nem modelo |
-| LICENSE, README, docs, .gitignore, handoff/baseline/AHE | Requisitos locais de licença MIT, preservação e evidência | Originais; histórico do caminho descartado separado da arquitetura ativa; não copiados de upstream |
-| Rascunhos dos Arquivos Principais/* | Quatro insumos humanos originais | Bytes/nomes preservados, sem converter rascunho em contrato vigente |
+| agents/qa-lead.md | F/agents/qa-orchestrator.agent.md | Delegation/context; five local roles, not the seven upstream roles |
+| agents/qa-browser-explorer.md; skills/playwright-cli-nav/** | F/skills/playwright-cli/SKILL.md; references/playwright-tests.md; references/test-generation.md | Existing CLI 0.1.22, snapshot/ref and lifecycle; authorized operation subset, no mandatory MCP/debug/attach |
+| agents/qa-bug-tracer.md; skills/bug-code-correlation/** | F/skills/qa-investigation/SKILL.md; references/flow.md; references/templates.md | Reproduction/evidence/hypothesis/cause/prevention. No application diaries/fixes; file:line is a local requirement, not a literal upstream claim |
+| agents/qa-e2e-engineer.md; skills/playwright-e2e-suite/** | F/skills/playwright-e2e-testing/SKILL.md; F/instructions/playwright-typescript.instructions.md | POM/fixtures/external data/test.step/observed locators/assertions; three roots are a local prompt rule, broad edit:* by HITL |
+| API guidance; skills/api-contract-testing/** | F/skills/api-testing/SKILL.md; templates/playwright-api-spec.ts | request fixture without a browser, contracts/errors/auth/isolation; no Zod/Supertest/Java installation or new runner |
+| agents/qa-quality-auditor.md; skills/qa-test-design/** | F/skills/qa-manual-istqb/SKILL.md | EP/BVA, decisions/states/risk/traceability; partial a11y, no assumed full conformance |
+| commands/qa-investigate.md, qa-audit.md, qa-e2e.md | O/opencode/commands/research.md, feature.md, test.md | Frontmatter/routing/$ARGUMENTS/short-step pattern; names and qa-lead routing are local requirements |
+| opencode.json; frontmatters | O/docs/opencode-v2.md + official OpenCode documentation | Native V2 agents/permissions/shell/subagent. No nonexistent MCP tools; no ported OAK plugins |
+| AGENTS.md | F/instructions/playwright-typescript.instructions.md; F/agents/qa-orchestrator.agent.md; local requirements | Original QA constitution, data trust and maintenance. edit:* for all five and prompt-only production prohibition are explicit human decisions |
+| install.sh; scripts/install.mjs | O/install.sh; O/scripts/manage-installation.mjs as wrapper/JS pattern | **Copy/symlink is a local request**, not behavior attributed to OAK. Minimal local preflight/rollback; no full upstream manifest/lifecycle port |
+| scripts/check.mjs; build-config.mjs; tests/*.test.mjs | Explicit local requirement for a dependency-free checker, contracts and preflight | Minimal Node built-in helpers, not executable structure attributed to the Fugazi catalog or an additional framework |
+| scripts/smoke-browser.mjs | F/skills/playwright-cli/SKILL.md | Local validation using the installed CLI and owned fixture. Not an agent backend/runner or sandbox |
+| scripts/smoke-opencode.mjs | O/docs/opencode-v2.md + local OpenCode 2.3.2 API | Required local verification: temporary HOME/config, copy/link, discovery/engine. No arbitrary tool or model invocation |
+| LICENSE, README, docs, .gitignore | Local MIT licensing, preservation and evidence requirements | Original material; retired architecture is historical, not an active upstream component |
+| Original drafts, baseline, bootstrap handoff, original ADR and AHE records | Original human inputs and local historical evidence | Externally archived with verified bytes and SHA256 before public-tree removal; see [ADR-001](adr-001.md). Not active contracts or required local dependencies |
 
-Para resolver cada referência F/O acima: concatenar a base
+To resolve each F/O reference above, concatenate the base
 `https://github.com/fugazi/test-automation-skills-agents/blob/ccae7871afd60e977eaccebce65d3bf4c633fabf/`
-ou
+or
 `https://github.com/jcarlosrodicio/opencode-agent-orchestration-kit/blob/ac4bc52d03a1eef1724b63ca2f97125c2f622e01/`
-com o path após F/ ou O/. O mapa preserva arquivo, URL base e SHA exatos.
+with the path after F/ or O/. The map preserves exact files, base URLs and SHAs.
 
-## Resultado da inspeção de aderência
-Toda árvore ativa tem padrão upstream concreto ou requisito/adaptação local
-declarado acima. Não restou runtime MCP custom, hook, proxy, writer ou quarentena
-ativa. O diretório de histórico AHE não é capacidade do produto.
+## Alignment findings
+Every active tree has a concrete upstream pattern or a declared local requirement/
+adaptation above. No active custom MCP runtime, hook, proxy, writer or quarantine
+remains. Archived AHE records are historical evidence, not product capability.
 
-Contradições upstream não foram copiadas cegamente: apesar de snippets inline,
-os exemplos E2E locais usam POM/fixtures/dados externos; exemplos API usam
-request e dados externos, sem instalar dependências citadas genericamente.
-CLI e runner são separados. A geração deve ser seguida por execução/verificação
-via handoff humano/controlado; sem runner/autorização, reportar not_run.
+Upstream contradictions were not copied blindly: despite inline upstream snippets,
+local E2E examples use POM/fixtures/external data; API examples use request and
+external data without installing generically cited dependencies. CLI and runner
+are separate. Generation must be followed by execution/verification through a
+human/controlled handoff; without a runner/authorization, report not_run.
 
-**Exceções justificadas:** cinco papéis/skills e três nomes de comandos,
-correlação file:line, copy/link, permissões edit:* por HITL e restrição shell
-CLI só do explorer são requisitos locais. Helpers de validação/instalação
-respondem ao aceite local, não fingem ser componentes do Fugazi/OAK.
-O risco pré-modelo dos comandos nativos permanece documentado, sem wrapper
-ou garantia mais forte do que o usuário pediu.
+**Justified exceptions:** five roles/skills and three command names, file:line
+correlation, copy/link, HITL edit:* permissions and explorer-only CLI shell are
+local requirements. Validation/installation helpers address local acceptance,
+not purported Fugazi/OAK components. The native-command pre-model risk remains
+documented, without a wrapper or guarantees stronger than requested.
 
-Esta inspeção de aderência não substitui review final independente nem prova
-que um modelo respeitará as regras comportamentais.
+This alignment inspection does not replace independent final review or prove
+that a model will obey behavioral rules.

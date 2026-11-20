@@ -1,11 +1,11 @@
-# Plano de contrato API
-- Ambiente/host de teste e efeitos autorizados:
-- Operação, versão e fonte do contrato:
-- Identidade sintética e papel (sem valor secreto):
-- CT-01 positivo: entrada / status exato / schema / semântica:
-- CT-02 negativo: partição inválida / erro esperado:
-- CT-03 limites: valores vizinhos / regra:
-- CT-04 sem auth e papel insuficiente: resposta documentada:
-- CT-05 conflito/idempotência quando aplicável:
-- Fixture: namespace único, IDs próprios e teardown em finally:
-- Evidência sanitizada esperada, execução pendente e bloqueios:
+# API contract plan
+- Test environment/host and authorized effects:
+- Operation, version and contract source:
+- Synthetic identity and role (no secret value):
+- CT-01 positive: input / exact status / schema / semantics:
+- CT-02 negative: invalid partition / expected error:
+- CT-03 boundaries: neighboring values / rule:
+- CT-04 unauthenticated and insufficient role: documented response:
+- CT-05 conflict/idempotency when applicable:
+- Fixture: unique namespace, owned IDs and finally teardown:
+- Expected sanitized evidence, pending execution and blockers:

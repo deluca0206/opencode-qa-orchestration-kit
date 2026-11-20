@@ -1,21 +1,21 @@
 ---
 name: qa-test-design
-description: Desenha cobertura baseada em risco e técnicas ISTQB, regressão e a11y com limites explícitos.
+description: Designs risk-based coverage using ISTQB techniques, regression and a11y with explicit limits.
 ---
-# Desenho de testes e auditoria
+# Test design and auditing
 
 ## MUST DO
-- Relacionar requisito a risco, cenário, esperado e evidência.
-- Usar equivalência, limites, decisão e transição onde houver comportamento distinto.
-- Priorizar impacto/probabilidade e indicar confiança separadamente.
-- Incluir falhas, autorização, recuperação e regressão compartilhada.
-- Tratar a11y automatizada como parcial; planejar teclado e tecnologia assistiva.
-- Rever testes gerados sem confundir autoria com aprovação runtime.
+- Link requirements to risks, scenarios, expected results and evidence.
+- Use equivalence, boundaries, decisions and transitions for distinct behavior.
+- Prioritize impact/likelihood and state confidence separately.
+- Include failures, authorization, recovery and shared regression.
+- Treat automated a11y checks as partial; plan keyboard and assistive technology checks.
+- Review generated tests without confusing authoring with runtime approval.
 
 ## WON'T DO
-- Não editar, executar testes ou delegar por esta skill.
-- Não alegar conformidade WCAG completa por scanner ou ausência de console error.
-- Não cobrir dezenas de variações equivalentes sem risco adicional demonstrável.
+- Do not edit, execute tests or delegate through this skill.
+- Do not claim full WCAG conformance from a scanner or absence of console errors.
+- Do not cover dozens of equivalent variations without demonstrable additional risk.
 
-Use [técnicas e critérios](references/guide.md) e
-[matriz de risco](templates/matrix.md).
+Use the [techniques and criteria](references/guide.md) and
+[risk matrix](templates/matrix.md).

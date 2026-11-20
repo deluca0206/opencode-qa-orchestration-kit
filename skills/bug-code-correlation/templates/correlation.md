@@ -1,12 +1,12 @@
-# Laudo causal
-- Sintoma, ambiente e esperado/observado:
-- EV recebido e passos que o produziram:
-- Rota file:line:
-- Componente file:line:
+# Causal report
+- Symptom, environment and expected/observed behavior:
+- Received EV and steps that produced it:
+- Route file:line:
+- Component file:line:
 - Handler file:line:
-- Condição file:line e entrada/estado:
-- Encadeamento causal:
-- Fatos / hipóteses / causa confirmada:
-- Alternativa e teste discriminante:
-- Regressão compartilhada:
-- Status, severidade, confiança e pendências:
+- Condition file:line and input/state:
+- Causal chain:
+- Facts / hypotheses / confirmed cause:
+- Alternative and distinguishing test:
+- Shared regression:
+- Status, severity, confidence and pending work:

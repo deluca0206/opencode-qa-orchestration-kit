@@ -1,22 +1,22 @@
-# Revisão de suíte
-O teste deve falhar quando a regra de negócio falhar. Verifique estado visível,
-não apenas sucesso de click. Use assertions web-first do runner existente.
-Seletores obtidos do explorer precisam ser únicos e ter escopo; em listas,
-restrinja ao item identificado por dado sintético.
+# Suite review
+A test must fail when the business rule fails. Verify visible state, not merely
+a successful click. Use the existing runner's web-first assertions.
+Explorer-provided selectors must be unique and scoped; in lists, narrow them to
+the item identified by synthetic data.
 
-Uma fixture cria dados para o próprio teste e encerra em finally/teardown.
-O namespace por worker evita colisão, mas não substitui cleanup. Nunca remover
-todos os dados de um ambiente para limpar um teste. APIs auxiliares de setup
-exigem contrato de ambiente de teste e autorização independente.
+A fixture creates data for its own test and cleans up in finally/teardown.
+A per-worker namespace prevents collisions but does not replace cleanup. Never
+remove an environment's entire dataset to clean up a test. Setup APIs require
+a test-environment contract and separate authorization.
 
-POM representa ações de domínio e locators estáveis. Não encapsule espera fixa
-ou retry invisível. Timeout deve ser explícito no runner humano; falha deve
-produzir diagnóstico. Execução em paralelo só depois de provar independência.
-O template ilustra sintaxe, não autoriza instalação nem prova execução.
+POM represents domain actions and stable locators. Do not encapsulate fixed waits
+or invisible retries. Timeouts must be explicit in the human-controlled runner;
+failures must produce diagnostics. Parallelize only after proving independence.
+The template illustrates syntax, not installation approval or execution evidence.
 
-Após gerar: fornecer handoff de execução ao humano/executor controlado com
-versão do runner existente, specs afetadas, comando exato compatível, dados,
-cleanup, esperado e evidências a devolver. Rever resultado e corrigir autoria
-apenas dentro do escopo aprovado. Sem runner/autorização, registrar not_run e
-manter validação pendente; isso não equivale a pular a verificação do Fugazi.
-Não ampliar shell do engineer nem instalar @playwright/test para preencher a lacuna.
+After generation, provide an execution handoff to the human/controlled executor
+with the existing runner version, affected specs, exact compatible command, data,
+cleanup, expected result and evidence to return. Review the result and correct
+authoring only within approved scope. Without a runner/authorization, record
+not_run and keep validation pending; this does not skip Fugazi's verification step.
+Do not expand the engineer's shell or install @playwright/test to fill the gap.
