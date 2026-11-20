@@ -1,0 +1,11 @@
+# Matriz de risco e cobertura
+- Escopo, versão e requisito confirmado:
+- R-01: impacto / probabilidade / justificativa / confiança:
+- C-01: risco R-01 / técnica / pré-condição / dado sintético / passos / esperado:
+- Método: manual, exploração ou automação proposta:
+- Evidência EV e file:line (ou lacuna):
+- Cobertura desenhada / escrita / executada:
+- Regressão em fluxos compartilhados:
+- A11y automatizada parcial / teclado / assistiva manual pendente:
+- Bloqueios e risco residual:
+- Gate de release e decisão humana necessária:

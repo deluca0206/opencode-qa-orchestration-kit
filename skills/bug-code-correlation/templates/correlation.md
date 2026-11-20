@@ -1,0 +1,12 @@
+# Laudo causal
+- Sintoma, ambiente e esperado/observado:
+- EV recebido e passos que o produziram:
+- Rota file:line:
+- Componente file:line:
+- Handler file:line:
+- Condição file:line e entrada/estado:
+- Encadeamento causal:
+- Fatos / hipóteses / causa confirmada:
+- Alternativa e teste discriminante:
+- Regressão compartilhada:
+- Status, severidade, confiança e pendências:

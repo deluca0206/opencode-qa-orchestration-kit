@@ -1,0 +1,11 @@
+# Plano de contrato API
+- Ambiente/host de teste e efeitos autorizados:
+- Operação, versão e fonte do contrato:
+- Identidade sintética e papel (sem valor secreto):
+- CT-01 positivo: entrada / status exato / schema / semântica:
+- CT-02 negativo: partição inválida / erro esperado:
+- CT-03 limites: valores vizinhos / regra:
+- CT-04 sem auth e papel insuficiente: resposta documentada:
+- CT-05 conflito/idempotência quando aplicável:
+- Fixture: namespace único, IDs próprios e teardown em finally:
+- Evidência sanitizada esperada, execução pendente e bloqueios:

@@ -1,0 +1,686 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "qa-lead",
+  "agents": {
+    "qa-lead": {
+      "description": "Orquestra investigação e cobertura QA; consolida evidências sem editar ou executar.",
+      "mode": "primary",
+      "system": "{file:./agents/qa-lead.md}",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "playwright-cli-nav",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "bug-code-correlation",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "playwright-e2e-suite",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "api-contract-testing",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "qa-test-design",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "qa-browser-explorer",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "qa-bug-tracer",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "qa-e2e-engineer",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "qa-quality-auditor",
+          "effect": "allow"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/secrets/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/credentials/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.git/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.npmrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.netrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_rsa*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_ed25519*",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "qa-browser-explorer": {
+      "description": "Reproduz fluxos autorizados por playwright-cli existente, snapshots e refs, sem MCP ou runner próprio.",
+      "mode": "subagent",
+      "system": "{file:./agents/qa-browser-explorer.md}",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "playwright-cli-nav",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? open --idle-timeout=60000 -- *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? goto -- *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? snapshot --",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? click -- *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? fill -- *",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? screenshot --",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? console --",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? requests --",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --json -s=qa-kit-???????? close --",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --version",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "NO_UPDATE_NOTIFIER=1 playwright-cli --help",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "*;*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*&*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*|*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*`*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*$(*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*\n*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*\r*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*>*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*<*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*#*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/secrets/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/credentials/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.git/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.npmrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.netrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_rsa*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_ed25519*",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "qa-bug-tracer": {
+      "description": "Lê código e correlaciona evidências runtime à condição causal com file:line, sem mutações.",
+      "mode": "subagent",
+      "system": "{file:./agents/qa-bug-tracer.md}",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "bug-code-correlation",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/secrets/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/credentials/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.git/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.npmrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.netrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_rsa*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_ed25519*",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "qa-e2e-engineer": {
+      "description": "Produz testes E2E/API nas três raízes por regra comportamental; edit nativo amplo aprovado pelo humano.",
+      "mode": "subagent",
+      "system": "{file:./agents/qa-e2e-engineer.md}",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "playwright-e2e-suite",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "api-contract-testing",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/secrets/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/credentials/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.git/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.npmrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.netrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_rsa*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_ed25519*",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "qa-quality-auditor": {
+      "description": "Desenha e revisa cobertura por risco, técnicas ISTQB, regressão e acessibilidade sem escrita.",
+      "mode": "subagent",
+      "system": "{file:./agents/qa-quality-auditor.md}",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "qa-test-design",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/secrets/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/credentials/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.git/**",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.npmrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/.netrc",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_rsa*",
+          "effect": "deny"
+        },
+        {
+          "action": "*",
+          "resource": "**/id_ed25519*",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    }
+  },
+  "skills": [
+    "./skills"
+  ],
+  "commands": {
+    "qa-investigate": {
+      "description": "Reproduz um sintoma e correlaciona evidências com leitura obrigatória de código.",
+      "agent": "qa-lead",
+      "template": "{file:./commands/qa-investigate.md}"
+    },
+    "qa-e2e": {
+      "description": "Desenha cobertura, valida seletores, produz testes e revisa sem executar specs.",
+      "agent": "qa-lead",
+      "template": "{file:./commands/qa-e2e.md}"
+    },
+    "qa-audit": {
+      "description": "Audita riscos, regressão, desenho de testes e acessibilidade sem alterar arquivos.",
+      "agent": "qa-lead",
+      "template": "{file:./commands/qa-audit.md}"
+    }
+  }
+}

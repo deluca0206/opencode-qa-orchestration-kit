@@ -1,0 +1,99 @@
+{
+  "iteration": "001",
+  "approval_status": "approved",
+  "basis": "Lead aprovou QA-01..04 com evaluator/debugger/evolver static_contract; não há evidência runtime de regressão.",
+  "scope": "kit local, não harness global",
+  "user_directed_cli_pivot": {
+    "approval_status": "approved",
+    "direction": "Tudo baseado nos padrões concretos Fugazi/OAK; CLI existente, comandos nativos com $ARGUMENTS, sem nova infraestrutura.",
+    "references": {
+      "fugazi": "ccae7871afd60e977eaccebce65d3bf4c633fabf",
+      "oak": "ac4bc52d03a1eef1724b63ca2f97125c2f622e01",
+      "audit": "docs/provenance.md"
+    },
+    "removed": ["runtime/browser-server.mjs", "runtime/browser-worker.mjs", "runtime/browser-contract.mjs", "runtime/sandbox.mjs", "runtime/navigation-guard.cjs", "scripts/mcp-client.mjs", "tests/browser-protocol.test.mjs", "tests/browser.test.mjs", "tests/navigation-guard.test.mjs", "registro MCP qa", "quarentena dos comandos"],
+    "retained": "Quatro rascunhos/hashes e histórico; cinco agentes/skills, três comandos e instalador copy/link úteis.",
+    "permissions": "edit:* nos cinco; shell só explorer em formas CLI específicas. Outros quatro sem shell, sem runner/deps/autodownload.",
+    "QA-05": "Comandos OAK restaurados por direção humana; risco pré-modelo documentado, só argumentos confiáveis. Sem wrapper/escaping protetor.",
+    "QA-06": "Backend custom/guard retirados; novo smoke CLI direto, sem herdar garantia de bwrap/MCP ou alegar firewall.",
+    "execution_handoff": "Após gerar specs, exigir execução/verificação humana/controlada no runner existente; not_run se faltar runner/autorização."
+  },
+  "runtime": "not_run na fase 1",
+  "initial_plan_historical": "QA-01..04 abaixo preservam a previsão inicial; o contrato vigente de escrita foi substituído pelo HITL.",
+  "current_writing_decision": {
+    "approval_status": "approved",
+    "literal": ["deixe write/edit liberados e coloque instruções e regras do agentes apenas.", "Todos os cinco agentes"],
+    "effect": "edit:* habilitado nos cinco QA. Regras de não escrita de diagnóstico/lead e três raízes do engineer são comportamentais, sem enforcement de produção.",
+    "accepted_risk": "Native allow source/aliases é esperado no requisito modificado. Sem pass retroativo para o requisito original.",
+    "cancelled": "writer MCP/descriptor/worker separado"
+  },
+  "changes": [
+    {
+      "id": "QA-01",
+      "evidence": "Rascunho Agents.md:7-9",
+      "root_cause": "Nome/extensão confundidos com fronteira de acesso.",
+      "component": "agents/qa-e2e-engineer.md",
+      "predicted_fix": "Deny-first e edit somente tests/**, e2e/**, playwright/**; aliases exigem barreira externa.",
+      "risk": "Pathname não isola hardlink/symlink/override; sem barreira externa, escrita bloqueada.",
+      "evaluation": "Contrato estático e negativos de checker; enforcement real posterior.",
+      "decision": "improve",
+      "pivot": "Saída só na conversa sem isolamento comprovado."
+    },
+    {
+      "id": "QA-02",
+      "evidence": "agentsqa-bug-tracer.md:4-8",
+      "root_cause": "Negação parcial de ferramentas deixa outras vias sem contrato fechado.",
+      "component": "agents/qa-bug-tracer.md",
+      "predicted_fix": "Deny-first explícito; allow somente leitura, question e skill exata.",
+      "risk": "Overrides e dados sensíveis em arquivos não nomeados.",
+      "evaluation": "Comparação integral de allowlist; runtime não executado nesta fase.",
+      "decision": "improve",
+      "pivot": "Bloquear correlação se não houver leitura segura."
+    },
+    {
+      "id": "QA-03",
+      "evidence": "rascunho agentsqa-lead.md:4-7,12,17,21-22",
+      "root_cause": "Delegação e vias alternativas de escrita sem fronteira explícita.",
+      "component": "agents/qa-lead.md",
+      "predicted_fix": "Lead sem escrita, shell ou MCP; delegação só aos quatro QA.",
+      "risk": "Filhos têm permissões próprias e contexto novo.",
+      "evaluation": "IDs e allowlists estritos; fluxo de handoff inspecionado.",
+      "decision": "improve",
+      "pivot": "Nenhum fallback a agente genérico."
+    },
+    {
+      "id": "QA-04",
+      "evidence": "Instalador inexistente no estado inicial; não é bug/regressão comprovado.",
+      "root_cause": "Capacidade ainda não implementada.",
+      "component": "install.sh (fase 3)",
+      "predicted_fix": "Preflight de todas entradas, preservação e rollback somente dos próprios novos itens.",
+      "risk": "Colisão, symlink e falha parcial podem danificar terceiros se o inventário não for conservador.",
+      "evaluation": "Adversariais em HOME/target sintéticos, nunca configuração real.",
+      "decision": "improve",
+      "pivot": "Falhar fechado em conflito, sem merge ou sobrescrita."
+    },
+    {
+      "id": "QA-05",
+      "evidence": "validation.md: commandInterpolation markerWrittenBeforeModel=true; security-correction.md: três candidatos sem placeholders também executaram sentinela",
+      "root_cause": "Preprocessing nativo substitui placeholders ou autoanexa raw args e depois executa interpolação shell, fora das permissões QA.",
+      "component": "commands/, scripts/build-config.mjs, scripts/install.mjs",
+      "predicted_fix": "Testar launchers sem placeholders; diante da falha, não registrar/instalar a rota insegura, preservando templates em quarentena.",
+      "risk": "Capacidade slash segura não entregue; exige decisão/correção anterior ao preprocessing. Edit liberado não autoriza shell pré-modelo.",
+      "evaluation": "Probes sintéticos pré-modelo para três candidatos; depois confirmar CommandNotFound e ausência de sentinela nos três IDs.",
+      "decision": "pivot",
+      "pivot": "Rota nativa bloqueada até decisão; nenhum escaping em prompt ou hook global."
+    },
+    {
+      "id": "QA-06",
+      "evidence": "validation.md: redirect externo teve 1 hit; security-correction.md: reavaliação com contador cross-origin",
+      "root_cause": "Routing original usa route.continue; o HTTP redirect pode ser seguido sem nova interceptação do destino.",
+      "component": "runtime/navigation-guard.cjs, runtime/browser-worker.mjs",
+      "predicted_fix": "Hook interno fixo initPage/context.route; validar origem antes de fetch(maxRedirects:0); abortar todo HTTP 3xx antes de entregar resposta ao browser.",
+      "risk": "Sem firewall universal; WS/outros protocolos/rebinding não cobertos; redirects same-origin e streaming podem ser afetados.",
+      "evaluation": "Smoke real com click, popup, redirect de navegação e subrecurso; exigir zero requests no servidor sintético não aprovado.",
+      "decision": "improve",
+      "pivot": "Somente origens sintéticas autorizadas sem segredos; sem SDK/deps/eval/run-code novos."
+    }
+  ],
+  "rollback": "Sem commits: branch unborn; não prometer rollback Git. Preservar hashes dos quatro rascunhos."
+}

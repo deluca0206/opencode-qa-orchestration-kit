@@ -1,0 +1,26 @@
+opencode-qa-orchestration-kit/
+├── README.md
+├── install.sh                       # Instala via cópia ou symlink em ~/.config/opencode
+├── opencode.json                    # Configuração base de permissões, MCPs e registro de agentes
+├── AGENTS.md                        # Constituição global de QA (proibição de alterar código de prod)
+├── agents/
+│   ├── qa-lead.md                   # Orquestrador principal (planeja, delega e consolida laudos)
+│   ├── qa-browser-explorer.md       # Navegação ao vivo, reprodução de fluxos e evidências (playwright-cli)
+│   ├── qa-bug-tracer.md             # Validação de bug + análise de código (estritamente READ-ONLY)
+│   ├── qa-e2e-engineer.md           # Criação/manutenção de suítes E2E e API (escreve só em tests/)
+│   └── qa-quality-auditor.md        # Casos de teste, risco, regressão, ISTQB e acessibilidade
+├── skills/
+│   ├── playwright-cli-nav/
+│   │   └── SKILL.md                 # Protocolo de navegação, snapshots, console/network capture
+│   ├── bug-code-correlation/
+│   │   └── SKILL.md                 # Como rastrear stacktrace/endpoint no código sem gerar patch
+│   ├── playwright-e2e-suite/
+│   │   └── SKILL.md                 # Padrões POM, fixtures, seletores resilientes e anti-flakiness
+│   ├── api-contract-testing/
+│   │   └── SKILL.md                 # Validação de payloads, status codes e contratos
+│   └── qa-test-design/
+│       └── SKILL.md                 # Partição de equivalência, valores limite, matriz de risco
+└── commands/
+    ├── qa-investigate.md            # /qa-investigate <sintoma ou URL>
+    ├── qa-e2e.md                    # /qa-e2e <fluxo ou feature>
+    └── qa-audit.md                  # /qa-audit <escopo da release>

@@ -1,0 +1,122 @@
+{
+  "iteration": "001",
+  "status": "awaiting_review",
+  "summary": "Pivot explícito para CLI Fugazi/OAK, sem backend próprio e com comandos nativos restaurados; evidência atual em cli-pivot.md, review final pendente.",
+  "user_directed_cli_pivot": {
+    "report": "cli-pivot.md",
+    "decision": "pivot",
+    "classification": ["static_contract", "live_smoke"],
+    "counts": { "node_tests_passed": 12, "native_cases_per_install_mode": 169, "install_modes": ["copy", "symlink"], "agents": 5, "skills": 5, "commands": 3, "mcp": 0 },
+    "review_R1": {
+      "status": "ready_for_delta_review",
+      "scope": "Somente provisionamento consistente do pai temporário nos três consumidores; nenhuma alteração de permissões/arquitetura.",
+      "red": "Regressão em fixture exclusiva reproduziu ENOENT de mkdtemp sem apagar/renomear /tmp/opencode.",
+      "green": "12 testes, checker e syntax checks; CLI/OpenCode reais com pais TMPDIR novos criados automaticamente.",
+      "runtime_verification": "Installer copy/link, discovery/motor e CLI works_as_specified no escopo medido; model-flow/specs continuam não verificados.",
+      "evidence": "cli-pivot.md#review-final-r1--pai-temporário-ausente"
+    },
+    "browser": "CLI 0.1.22 existente: open/goto/snapshot/fill/click/console/requests/screenshot/close reais em sessão exclusiva. Sem isolamento OS próprio.",
+    "QA-01": "Risco edit:* aceito; source/aliases allow esperado, limites só por prompts.",
+    "QA-02": "Restrições restantes mantidas; exceção CLI específica só explorer, não shell genérico.",
+    "QA-03": "Delegação restrita mantida; especialistas não delegam.",
+    "QA-04": "Copy/link e preflight preservados, sem runtime MCP no inventário.",
+    "QA-05": "Quarentena retirada por direção humana; comandos OAK com $ARGUMENTS e aviso de risco nativo pré-modelo, sem alegação de correção.",
+    "QA-06": "Runtime/hook custom retirados; resultado antigo é histórico, não passa para CLI.",
+    "not_run": ["Modelo respeitando instruções e invocação E2E de ferramentas QA", "Specs do aplicativo: sem runner/autorização; handoff humano/controlado exigido", "Instalação global e publicação"]
+  },
+  "approval_status": "approved para implementar quatro fases; não equivale à aceitação dos riscos",
+  "evidence_report": "validation.md",
+  "legacy_fields_historical": "security_correction, evaluations, browser, counts e demais campos da primeira entrega são históricos; o estado vigente é user_directed_cli_pivot e cli-pivot.md.",
+  "initial_evaluations_historical": "Resultados abaixo preservam a primeira entrega. A reavaliação vigente está em security_correction; não são pass retroativo.",
+  "security_correction": {
+    "report": "security-correction.md",
+    "status": "paused_for_official_mcp_research",
+    "QA-01": {
+      "decision": "keep_modified_requirement",
+      "accepted_risk": "HITL habilitou edit:* nos cinco QA; produção protegida só por prompts. Source/aliases allow esperado. Writer separado cancelado."
+    },
+    "QA-02": {
+      "decision": "keep",
+      "scope": "Contrato/motor das restrições restantes; edit foi liberado explicitamente. Invocação real de tools/modelo not_run."
+    },
+    "QA-03": {
+      "decision": "keep",
+      "scope": "Delegação só aos quatro QA; especialistas não delegam. Falha pré-modelo separada em QA-05."
+    },
+    "QA-04": {
+      "decision": "keep",
+      "scope": "Somente ambiente sintético medido; instalador não registra/copia comandos em quarentena."
+    },
+    "QA-05": {
+      "decision": "pivot",
+      "classification": "live_smoke",
+      "candidate_launchers": "does_not: três candidatos sem placeholders autoanexaram raw args e escreveram sentinela",
+      "blocked_routes": "works_as_specified: três CommandNotFound, nenhuma sentinela escrita",
+      "remaining": "Capacidade slash segura não entregue; requer decisão/handoff."
+    },
+    "QA-06": {
+      "decision": "improve_then_pause",
+      "classification": "live_smoke",
+      "original": "redirect cross-origin 1 hit; click/popup zero não provavam universalidade",
+      "reevaluation": "hook interno fixo initPage/context.route + fetch(maxRedirects:0), abortando todos os HTTP 3xx; click/popup/redirect/subrecurso zero hits",
+      "limit": "Não firewall universal; redirects same-origin recusados. Runtime custom pausado por decisão humana de pesquisar MCP oficial."
+    },
+    "counts": { "node_tests_passed": 19, "native_permission_expected_effects": 70, "registered_slash_commands": 0, "quarantined_templates": 3 },
+    "official_mcp": "not_run: aguardar pesquisa, PIN exato aprovado e handoff; nenhum pacote/browser/npx autodownload habilitado"
+  },
+  "evaluations": [
+    {
+      "id": "QA-01",
+      "classification": ["static_contract", "live_smoke"],
+      "commands": ["node scripts/check.mjs", "node --test tests/*.test.mjs", "QA_SMOKE_OPENCODE=<local> node scripts/smoke-opencode.mjs"],
+      "result": "Três raízes e denies de produção corretos no contrato e motor. Traversal/symlink/hardlink retornaram allow nas consultas; nenhuma ferramenta de escrita foi executada.",
+      "attribution": "Contrato corrige concessão por extensão; pathname nativo não é barreira externa.",
+      "decision": "pivot",
+      "next": "Manter autoria apenas na conversa sem comprovação externa; invocação real e isolamento permanecem gates."
+    },
+    {
+      "id": "QA-02",
+      "classification": ["static_contract", "live_smoke"],
+      "commands": ["node scripts/check.mjs", "node --test tests/*.test.mjs", "QA_SMOKE_OPENCODE=<local> node scripts/smoke-opencode.mjs"],
+      "result": "Tracer deny-first e allowlists exatas; motor negou escrita/shell/execute/MCP/delegação e permitiu leitura de controle.",
+      "attribution": "Fechamento explícito de vias alternativas no agente.",
+      "decision": "keep",
+      "not_run": "Invocação real das ferramentas e comportamento do modelo."
+    },
+    {
+      "id": "QA-03",
+      "classification": ["static_contract", "live_smoke"],
+      "commands": ["node scripts/check.mjs", "QA_SMOKE_OPENCODE=<local> node scripts/smoke-opencode.mjs"],
+      "result": "Lead só delega aos quatro QA nas consultas. Templates não contêm shell. Porém input de comando com interpolação escreveu sentinela sintética antes do modelo.",
+      "attribution": "Permissões do lead corrigidas; preprocessing nativo de $ARGUMENTS ocorre fora da barreira do agente e não é corrigível por prompt.",
+      "decision": "pivot",
+      "next": "Não aceitar argumentos não confiáveis; gate exige correção/camada adicional, sem alterar harness global."
+    },
+    {
+      "id": "QA-04",
+      "classification": ["live_smoke"],
+      "commands": ["node --test tests/*.test.mjs", "install.sh --copy --target <temporário> --dry-run"],
+      "result": "Copy/link, espaços, conflitos, symlinks, dry-run, reexecução e rollback parcial preservaram sentinelas. Nenhuma config real foi alvo.",
+      "attribution": "Nova capacidade com inventário explícito, preflight e rollback somente de itens próprios; não era regressão comprovada.",
+      "decision": "keep",
+      "not_run": "Concorrência hostil, outras plataformas e instalação global."
+    }
+  ],
+  "browser": {
+    "classification": "live_smoke",
+    "command": "QA_SMOKE_NODE=... QA_SMOKE_CLI_ROOT=... QA_SMOKE_BROWSER_DIR=... QA_SMOKE_BWRAP=... node scripts/smoke-browser.mjs",
+    "filesystem_and_lifecycle": "works_as_specified em fixture sintética com mounts confiáveis",
+    "network": "does_not para isolamento universal: redirect externo teve 1 hit, click/popup 0",
+    "decision": "improve",
+    "next": "Exigir rede externa controlada quando necessária; não apresentar gate de URL como firewall."
+  },
+  "counts": {
+    "node_tests_passed": 15,
+    "node_tests_failed": 0,
+    "native_permission_expected_effects": 64,
+    "draft_hashes_preserved": 4
+  },
+  "manual_oracle": "not_run; aceitação de risco e review final pendentes",
+  "runtime_not_run": ["Invocação real de ferramentas QA", "Resistência comportamental do modelo a injection", "Barreira externa de autoria engineer"],
+  "delivery": "Sem instalação global, dependências novas, commit ou push. Branch unborn; rollback Git indisponível."
+}

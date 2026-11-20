@@ -1,0 +1,12 @@
+# Reprodução
+- Ambiente/versão:
+- Origem e ações autorizadas:
+- Pré-condição e dados sintéticos:
+- Esperado:
+- Passos: 1. abrir; 2. snapshot; 3. interação observada; 4. verificar estado.
+- Observado:
+- EV-001: operação, instante, metadados sanitizados e afirmação sustentada.
+- Status: reproduzido | não reproduzido | inconclusivo | bloqueado.
+- Severidade / confiança e justificativas:
+- file:line: não disponível até correlação por leitura.
+- Sessão fechada / pendências:
